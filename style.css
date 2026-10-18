@@ -5,4 +5,84 @@ html {
 body {
     margin: 0;
     min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+    color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quiz-container {
+    background-color: rgba(255, 255, 255, 0.10);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.2rem;
+}
+
+/* Timer */
+#timer {
+    font-size: 1.1rem;
+    margin: 10px 0;
+}
+
+#time-left {
+    font-weight: bold;
+    color: #dc3545;
+}
+
+/* Quiz Box */
+#choices-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.choice {
+    background-color: #eee;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.choice:hover {
+    background-color: #ddd;
+}
+
+.choice.correct {
+    background-color: #28a745;
+    color: white;
+}
+
+.choice.wrong {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #005;
 }
