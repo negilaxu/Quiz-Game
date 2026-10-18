@@ -86,3 +86,41 @@ h2 {
 .btn:hover {
     background-color: #005;
 }
+
+/* High Scores */
+#high-score-container {
+    display: flex;
+    flex-direction: column;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+td,
+th {
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: center;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 2px solid #0056b3;
+}
+
+td {
+    font-size: 0.9rem;
+}
+
+.highlight {
+    background-color: #80e280;
+}

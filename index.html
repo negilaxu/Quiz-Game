@@ -24,6 +24,35 @@
             </div>
             <button type="button" id="next-btn" class="btn" disabled>Next</button>
         </div>
+        <!-- Loader -->
+        <div id="loader" style="display: none;">
+            <h2>Loading High Scores ...</h2>
+        </div>
+        <!-- High Scores -->
+        <div id="high-score-container" style="display: none;">
+            <table id="hight-scores-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Score</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="hight-scores-list">
+                    <tr class="highlight">
+                        <td>Poo</td>
+                        <td>95</td>
+                        <td>2026-10-16</td>
+                    </tr>
+                    <tr>
+                        <td>Poo</td>
+                        <td>95</td>
+                        <td>2026-10-16</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="button" id="play-again-btn" class="btn">Play Again</button>
+        </div>
     </div>
 
     <script src="./script.js"></script>
