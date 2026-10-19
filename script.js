@@ -25,7 +25,15 @@ const totalTime = 10000;
 async function fetchQuestions() {
   try {
     const response = await fetch(TRIVIA_API_URL);
+    if (!response.ok) {
+      throw new Error(`Questions request failed: ${response.status}`);
+    }
+
     const data = await response.json();
+    if (!Array.isArray(data.results) || data.results.length === 0) {
+      throw new Error("Questions response did not contain any questions");
+    }
+
     questions = data.results;
     loadQuestion();
   } catch (error) {
@@ -118,8 +126,8 @@ function checkAnswer(selectedAnswer, correctAnswer) {
 
   if (selectedAnswer === correctAnswer) {
     const elapsedTime = Date.now() - startTime;
-    const timeLeft = totalTime - elapsedTime;
-    const weightedScore = Math.floor(timeLeft / totalTime) * 1000;
+    const timeLeft = Math.max(0, totalTime - elapsedTime);
+    const weightedScore = Math.floor((timeLeft / totalTime) * 1000);
     totalScore += weightedScore;
   }
   nextBtn.disabled = false;
@@ -169,7 +177,7 @@ async function saveHighScore() {
     const response = await fetch(PANTRY_API_URL);
     if (response.ok) {
       const data = await response.json();
-      highScores = data.highScores || [];
+      highScores = Array.isArray(data.highScores) ? data.highScores : [];
     } else {
       highScores = [];
     }
@@ -181,15 +189,18 @@ async function saveHighScore() {
   highScores.push(newScore);
 
   // Sort high scores and keep only top 10
-  highScores.sort((a, b) => (b.score = a.score));
+  highScores.sort((a, b) => Number(b.score) - Number(a.score));
   highScores = highScores.slice(0, 10);
 
   try {
-    await fetch(PANTRY_API_URL, {
+    const response = await fetch(PANTRY_API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ highScores }),
     });
+    if (!response.ok) {
+      throw new Error(`High score save failed: ${response.status}`);
+    }
   } catch (error) {
     console.error("Error saving high score:", error);
   }
