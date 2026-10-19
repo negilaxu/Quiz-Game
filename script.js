@@ -118,6 +118,45 @@ function updateTimerDisplay(timeLeft) {
   timerDisplay.innerText = seconds;
 }
 
+// Celebrate a correct answer with bottom-to-top confetti
+function launchConfetti() {
+  const confettiContainer = document.createElement("div");
+  confettiContainer.className = "confetti-container";
+  document.body.appendChild(confettiContainer);
+
+  const colors = ["#ff4757", "#ffa502", "#2ed573", "#1e90ff", "#e84393"];
+
+  for (let i = 0; i < 70; i++) {
+    const confetti = document.createElement("span");
+    confetti.className = "confetti";
+
+    confetti.style.left = `${Math.random() * 100}%`;
+    confetti.style.backgroundColor =
+      colors[Math.floor(Math.random() * colors.length)];
+    confetti.style.animationDelay = `${Math.random() * 0.4}s`;
+    confetti.style.animationDuration = `${1.8 + Math.random() * 1.5}s`;
+    confetti.style.setProperty("--drift", `${-150 + Math.random() * 300}px`);
+    confetti.style.setProperty("--rotation", `${Math.random() * 720 - 360}deg`);
+
+    confettiContainer.appendChild(confetti);
+  }
+
+  setTimeout(() => {
+    confettiContainer.remove();
+  }, 3500);
+}
+
+// Give feedback for a wrong answer
+function showWrongAnswerFeedback() {
+  quizBox.classList.remove("wrong-answer");
+  void quizBox.offsetWidth;
+  quizBox.classList.add("wrong-answer");
+
+  setTimeout(() => {
+    quizBox.classList.remove("wrong-answer");
+  }, 500);
+}
+
 // Check if Answer is Correct
 function checkAnswer(selectedAnswer, correctAnswer) {
   clearInterval(timerInterval);
@@ -129,6 +168,9 @@ function checkAnswer(selectedAnswer, correctAnswer) {
     const timeLeft = Math.max(0, totalTime - elapsedTime);
     const weightedScore = Math.floor((timeLeft / totalTime) * 1000);
     totalScore += weightedScore;
+    launchConfetti();
+  } else {
+    showWrongAnswerFeedback();
   }
   nextBtn.disabled = false;
 }
